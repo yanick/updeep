@@ -1,41 +1,40 @@
-import { expect } from 'chai'
-import u from '../lib'
+import u from './index'
+
+const inc = (x:number) => x + 1
 
 describe('u.map', () => {
   it('applies updates to each item in an array', () => {
     const object = [0, 1, 2]
-    const inc = x => x + 1
     const result = u.map(inc, object)
 
-    expect(result).to.eql([1, 2, 3])
+    expect(result).toEqual([1, 2, 3])
   })
 
   it('applies updates to each value in an object', () => {
     const object = { a: 0, b: 1, c: 2 }
-    const inc = x => x + 1
     const result = u.map(inc, object)
 
-    expect(result).to.eql({ a: 1, b: 2, c: 3 })
+    expect(result).toEqual({ a: 1, b: 2, c: 3 })
   })
 
   it('can update with a regular updates object', () => {
     const object = [{ a: 0 }, { a: 0 }]
     const result = u.map({ a: 1 }, object)
 
-    expect(result).to.eql([{ a: 1 }, { a: 1 }])
+    expect(result).toEqual([{ a: 1 }, { a: 1 }])
   })
 
   it('returns the same object if no updates are made', () => {
     const array = [0, 1]
-    const ident = x => x
+    const ident = ( x:any ) => x
     let result = u.map(ident, array)
 
-    expect(result).to.equal(array)
+    expect(result).toEqual(array)
 
     const object = { a: 0 }
     result = u.map(ident, object)
 
-    expect(result).to.equal(object)
+    expect(result).toEqual(object)
   })
 
   it('passes the key or index as the second parameter to the iteratee', () => {
@@ -43,10 +42,10 @@ describe('u.map', () => {
       a: { x: 0 },
       b: [3, 3],
     }
-    const setToKey = (_, key) => key
+    const setToKey = (_:any, key:any) => key
     const result = u.map(u.map(setToKey), object)
 
-    expect(result).to.eql({
+    expect(result).toEqual({
       a: { x: 'x' },
       b: [0, 1],
     })
@@ -56,7 +55,7 @@ describe('u.map', () => {
     const object = {
       b: [3, 3],
     }
-    const setToKey = (_, key) => key
+    const setToKey = (_:any, key:any) => key
     const result = u(
       {
         b: u.map(setToKey),
@@ -64,12 +63,12 @@ describe('u.map', () => {
       object
     )
 
-    expect(result).to.eql({
+    expect(result).toEqual({
       b: [0, 1],
     })
   })
 
   it('freezes the result', () => {
-    expect(Object.isFrozen(u.map({}, {}))).to.be.true
+    expect(Object.isFrozen(u.map({}, {}))).toBeTruthy
   })
 })

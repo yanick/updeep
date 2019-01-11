@@ -32,9 +32,10 @@ import freeze from './freeze'
  *
  * expect(result).toEqual({ name: 'Mitch', favorites: { band: 'Coldplay' } });
  */
-function constant(value) {
+export function constant<A>(value:A): (...args: any[]) => A {
   const frozen = freeze(value)
   return () => frozen
 }
+
 
 export default constant

@@ -1,7 +1,7 @@
 import update from './update'
-import curry from './util/curry'
+import curry from 'lodash/curry'
 
-function withDefault(defaultValue, updates, object) {
+function withDefault(defaultValue: object, updates: any, object: any) {
   if (typeof object === 'undefined') {
     return update(updates, defaultValue)
   }

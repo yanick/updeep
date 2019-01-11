@@ -1,13 +1,14 @@
-import curry from './util/curry'
+import curry from 'lodash/curry'
 import update from './update'
 import map from './map'
 import splitPath from './util/splitPath'
+import { Path, Updates, Source, PathPart } from './types';
 
 const wildcard = '*'
 
-function reducePath(acc, key) {
+function reducePath(acc:Updates, key: PathPart) {
   if (key === wildcard) {
-    return value =>
+    return ( value: any ) =>
       Object.prototype.hasOwnProperty.call(value, wildcard)
         ? // If we actually have wildcard as a property, update that
           update({ [wildcard]: acc }, value)
@@ -18,11 +19,12 @@ function reducePath(acc, key) {
   return { [key]: acc }
 }
 
-function updateIn(path, value, object) {
+function updateIn(path: Path, value: Updates, object: Source) {
   const parts = splitPath(path)
   const updates = parts.reduceRight(reducePath, value)
 
   return update(updates, object)
 }
+
 
 export default curry(updateIn)

@@ -3,7 +3,7 @@ import u from '../lib'
 
 describe('u.reject', () => {
   it('can reject by index', () => {
-    const result = u.reject((_, index) => index === 1, [3, 4, 5])
+    const result = u.reject((_: unknown, index: number) => index === 1, [3, 4, 5])
 
     expect(result).to.eql([3, 5])
   })
@@ -18,7 +18,7 @@ describe('u.reject', () => {
     const object = { foo: [1, 2, 3] }
     const result = u(
       {
-        foo: u.reject(x => x === 'Justin Bieber'),
+        foo: u.reject((x:string) => x === 'Justin Bieber'),
       },
       object
     )
@@ -30,7 +30,7 @@ describe('u.reject', () => {
     const object = { foo: [1, 2, 3, 4] }
     const result = u(
       {
-        foo: u.reject(x => x === 4),
+        foo: u.reject((x:number) => x === 4),
       },
       object
     )

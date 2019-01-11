@@ -1,4 +1,4 @@
-function isFreezable(object) {
+function isFreezable(object:any) {
   if (object === null) return false
   if (object instanceof RegExp) return false
   if (object instanceof ArrayBuffer) return false
@@ -6,11 +6,11 @@ function isFreezable(object) {
   return Array.isArray(object) || typeof object === 'object'
 }
 
-function needsFreezing(object) {
+function needsFreezing(object: any) {
   return isFreezable(object) && !Object.isFrozen(object)
 }
 
-function recur(object) {
+function recur(object: any) {
   Object.freeze(object)
 
   Object.keys(object).forEach(key => {
@@ -37,7 +37,7 @@ function recur(object) {
  * @param  {object} object Object to freeze.
  * @return {object} Frozen object, unless in production, then the same object.
  */
-function freeze(object) {
+function freeze<O>(object: O): O {
   if (process.env.NODE_ENV === 'production') {
     return object
   }

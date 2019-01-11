@@ -7,21 +7,21 @@ import constant from './constant'
 const innerOmitted = { __omitted: true }
 export const omitted = constant(innerOmitted)
 
-function isEmpty(object) {
+function isEmpty(object : object) {
   return !Object.keys(object).length
 }
 
-function reduce(object, callback, initialValue) {
+function reduce(object: object, callback: Function, initialValue: any) {
   return Object.keys(object).reduce(
-    (acc, key) => callback(acc, object[key], key),
+    (acc, key) => callback(acc, (object as any)[key], key),
     initialValue
   )
 }
 
-function resolveUpdates(updates, object) {
+function resolveUpdates(updates: Updates, object: Source) {
   return reduce(
     updates,
-    (acc, value, key) => {
+    (acc: any, value: any, key: any) => {
       let updatedValue = value
 
       if (
@@ -29,13 +29,13 @@ function resolveUpdates(updates, object) {
         value !== null &&
         typeof value === 'object'
       ) {
-        updatedValue = update(value, object[key]) // eslint-disable-line no-use-before-define
+        updatedValue = update(value, (object as any)[key]) // eslint-disable-line no-use-before-define
       } else if (typeof value === 'function') {
-        updatedValue = value(object[key])
+        updatedValue = value( (object as any)[key])
       }
 
-      if (object[key] !== updatedValue) {
-        acc[key] = updatedValue // eslint-disable-line no-param-reassign
+      if ( (object as any)[key] !== updatedValue) {
+        (acc as any)[key] = updatedValue // eslint-disable-line no-param-reassign
       }
 
       return acc
@@ -44,11 +44,11 @@ function resolveUpdates(updates, object) {
   )
 }
 
-function updateArray(updates, object) {
+function updateArray(updates: object, object: any[]) {
   const newArray = [...object]
 
-  Object.keys(updates).forEach(key => {
-    newArray[key] = updates[key]
+  Object.keys(updates).forEach( (key: string) => {
+    (newArray as any)[key] = (updates as any)[key]
   })
 
   return newArray
@@ -71,7 +71,7 @@ function updateArray(updates, object) {
  * @param {Object|Array}    object to update
  * @return {Object|Array}   new object with modifications
  */
-function update(updates, object, ...args) {
+function update(updates: Updates, object: any, ...args: any[]) {
   if (typeof updates === 'function') {
     return updates(object, ...args)
   }
@@ -101,4 +101,15 @@ function update(updates, object, ...args) {
   )
 }
 
-export default wrap(update, 2)
+import curry from 'lodash/curry'
+import freeze from './freeze'
+import { Updates, Source } from './types';
+
+const frozen :typeof update = (...args: any[]) => freeze( (update as any)(...args) );
+
+const wrapped = curry(frozen,2)
+
+type WithAdditionalArgs = typeof wrapped & ( ( updates: any, object: any, ...args: any[] ) => any)
+
+
+export default wrapped as WithAdditionalArgs
