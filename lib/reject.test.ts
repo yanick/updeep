@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import u from '../lib'
 
 describe('u.reject', () => {

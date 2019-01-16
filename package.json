@@ -19,6 +19,7 @@
     "declarative"
   ],
   "scripts": {
+    "build": "tsc ; rm -f ./types/*.test.ts; rm -f ./types/util/*.test.ts",
     "test": "gulp",
     "test:watch": "gulp watch",
     "prepublish": "gulp prepublish",
@@ -29,16 +30,16 @@
     "url": "https://github.com/substantial/updeep/issues"
   },
   "dependencies": {
-    "@types/jest": "^23.3.12",
-    "@types/node": "^10.12.18",
     "jest": "^23.6.0",
     "lodash": "^4.2.0",
     "ts-jest": "^23.10.5"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/jest": "^23.3.12",
     "@types/lodash": "^4.14.119",
     "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
     "babel-core": "^6.4.0",
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",

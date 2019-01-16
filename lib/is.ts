@@ -4,7 +4,7 @@ import { Source, Path } from './types';
 
 type Predicate = any
 
-function is(path: Path, predicate: Predicate, object: Source): boolean {
+export function is(path: Path, predicate: Predicate, object: Source): boolean {
   const parts = splitPath(path)
 
   let rest = object
