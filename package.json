@@ -19,7 +19,7 @@
     "declarative"
   ],
   "scripts": {
-    "build": "tsc ; rm -f ./types/*.test.ts; rm -f ./types/util/*.test.ts",
+    "build": "tsc ; rm -f ./types/*.test.ts ./types/util/*.test.ts",
     "test": "gulp",
     "test:watch": "gulp watch",
     "prepublish": "gulp prepublish",

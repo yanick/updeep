@@ -1,10 +1,8 @@
 import splitPath from './util/splitPath'
-import curry from 'lodash/curry'
+import curry from './util/curry'
 import { Source, Path } from './types';
 
-type Predicate = any
-
-export function is(path: Path, predicate: Predicate, object: Source): boolean {
+export function is(path: Path, predicate: any, object: object): boolean {
   const parts = splitPath(path)
 
   let rest = object

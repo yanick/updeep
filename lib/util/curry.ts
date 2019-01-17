@@ -47,11 +47,11 @@ export function curry2(fn:any ):any {
     }
 
     if (n >= 2) {
-      if (a === _) return curry1((a, c, d) => fn(a, b, c, d))
+      if (a === _) return curry1((a:any, c:any, d:any) => fn(a, b, c, d))
       return fn(a, b, c, d)
     }
 
-    if (n === 1) return curry1((b, c, d) => fn(a, b, c, d))
+    if (n === 1) return curry1((b:any, c:any, d:any) => fn(a, b, c, d))
     return curried
   }
 }
@@ -69,7 +69,7 @@ export function curry3(fn:any): any {
 
     if (n >= 3) {
       if (a === _) {
-        if (b === _) return curry2((a:any, b:any, d,:any e:any) => fn(a, b, c, d, e))
+        if (b === _) return curry2((a:any, b:any, d:any, e:any) => fn(a, b, c, d, e))
         return curry1((a:any, d:any, e:any) => fn(a, b, c, d, e))
       }
       if (b === _) return curry1((b:any, d:any, e:any) => fn(a, b, c, d, e))
@@ -134,7 +134,7 @@ export function curry4(fn:any): any {
   }
 }
 
-export default function curry(fn: (...args:any[] ) => any, length: 1|2|3|4|undefined ) {
+export default function curry(fn: (...args:any[] ) => any, length?: 1|2|3|4 ) {
     if(!length) {
         length = fn.length as 1|2|3|4;
     }
