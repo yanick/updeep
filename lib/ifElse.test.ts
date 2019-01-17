@@ -1,9 +1,16 @@
 import u from './index'
 
+test( 'type', () => {
+    let a :object = u.ifElse( false as boolean, { a: 1 }, {a: 2 }, {a: 3 } );
+    let b :string|number = u.ifElse( false as boolean, "foo", 3, {a: 3 } );
+    let c: number = u.ifElse( false, "foo", 3, {a: 3 } );
+    let d: string = u.ifElse( true, "foo", 3, {a: 3 } );
+});
+
 describe('u.ifElse', () => {
   it('does updates with the else if the predicate is false', () => {
     const object = { a: 0 }
-    const result = u.ifElse(false, { b: 1 }, { b: 2 }, object)
+    const result: object = u.ifElse(false, { b: 1 }, { b: 2 }, object)
     expect(result).toEqual({ a: 0, b: 2 })
   })
 
