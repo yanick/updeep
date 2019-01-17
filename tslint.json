@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "no-consecutive-blank-lines": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+        }
+}
