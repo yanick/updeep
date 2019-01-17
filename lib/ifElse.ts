@@ -1,9 +1,6 @@
 import update from './update'
 import curry from './util/curry';
-import { Predicate, Updates, Source, MergedUpdate } from './types';
-
-type TruePredicate<S=any> = true | ( (a: S) => true )
-type FalsePredicate<S=any> = false | ( (a: S) => false )
+import { Predicate, Updates, Source, MergedUpdate, FalsePredicate, TruePredicate } from './types';
 
 export function updateIfElse<S,TU,FU>(predicate: TruePredicate<S>, trueUpdates: TU, falseUpdates: FU, object: S): MergedUpdate<TU,S>;
 export function updateIfElse<S,TU,FU>(predicate: FalsePredicate<S>, trueUpdates: TU, falseUpdates: FU, object: S): MergedUpdate<FU,S>;
