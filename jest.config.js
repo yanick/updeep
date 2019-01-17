@@ -1,5 +1,5 @@
 module.exports = {
-    roots: [ './lib', './test' ],
+    roots: [ './lib' ],
   verbose: true,
   "transform": {
   "^.+\\.(ts|tsx)$": "ts-jest",
