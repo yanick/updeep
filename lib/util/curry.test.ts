@@ -8,55 +8,55 @@ describe('curry1', () => {
   })
 
   it('will take up to two extra arguments', () => {
-    const curried = curry1((a, b, c) => [a, b, c]) as any;
+    const curried = curry1((a: any, b:any , c: any) => [a, b, c]);
     expect(curried(1, 2, 3, 4)).toEqual([1, 2, 3])
   })
 
   it('returns a fn with arity of 1', () => {
-    const curried = curry1((a, b, c) => [a, b, c])
+    const curried = curry1((a:any, b:any, c:any) => [a, b, c])
     expect(curried).toHaveLength(1)
   })
 })
 
 describe('curry2', () => {
   it('can curry two arguments', () => {
-    const add = curry2((x, y) => x + y)
+    const add = curry2((x:number, y:number) => x + y)
     expect(add(3)(4)).toEqual(7)
     expect(add()(3)()(4)).toEqual(7)
     expect(add(3, 4)).toEqual(7)
   })
 
   it('will take up to two extra arguments', () => {
-    const curried = curry2((a, b, c, d) => [a, b, c, d]) as any
+    const curried = curry2((a:any, b:any, c:any, d:any) => [a, b, c, d]) as any
     expect(curried(1, 2, 3, 4, 5)).toEqual([1, 2, 3, 4])
   })
 
   it('can use the placeholder', () => {
-    const curried = curry2((a, b, c, d) => [a, b, c, d])
+    const curried = curry2((a:any, b:any, c:any, d:any) => [a, b, c, d])
     expect(curried(_, 2)(1, 3, 4)).toEqual([1, 2, 3, 4])
   })
 
   it('returns a fn with arity of 2', () => {
-    const curried = curry2((a, b, c, d) => [a, b, c, d])
+    const curried = curry2((a:any, b:any, c:any, d:any) => [a, b, c, d])
     expect(curried).toHaveLength(2)
   })
 })
 
 describe('curry3', () => {
   it('can curry three arguments', () => {
-    const add = curry3((x, y, z) => x + y + z)
+    const add = curry3((x:any, y:any, z:any) => x + y + z)
     expect(add(3, _)(4)(5)).toEqual(12)
     expect(add()(3)()(4, 5)).toEqual(12)
     expect(add(3, 4, 5)).toEqual(12)
   })
 
   it('will take up to two extra arguments', () => {
-    const curried = curry3((a, b, c, d, e) => [a, b, c, d, e])
+    const curried = curry3((a:any, b:any, c:any, d:any, e:any) => [a, b, c, d, e])
     expect(curried(1, 2, 3, 4, 5, 6)).toEqual([1, 2, 3, 4, 5])
   })
 
   it('can use the placeholder', () => {
-    const curried = curry3((a, b, c, d, e) => [a, b, c, d, e])
+    const curried = curry3((a:any, b:any, c:any, d:any, e:any) => [a, b, c, d, e])
     expect(curried(_, 2)('a', 3, 4, 5)).toEqual(['a', 2, 3, 4, 5])
     expect(curried('b', _, 3)(2, 4, 5)).toEqual(['b', 2, 3, 4, 5])
     expect(curried(_, 2, 3)('c', 4, 5)).toEqual(['c', 2, 3, 4, 5])
@@ -64,26 +64,26 @@ describe('curry3', () => {
   })
 
   it('returns a fn with arity of 3', () => {
-    const curried = curry3((a, b, c, d, e) => [a, b, c, d, e])
+    const curried = curry3((a:any, b:any, c:any, d:any, e:any) => [a, b, c, d, e])
     expect(curried).toHaveLength(3)
   })
 })
 
 describe('curry4', () => {
   it('can curry four arguments', () => {
-    const add = curry4((x, y, z, u) => x + y + z + u)
+    const add = curry4((x:any, y:any, z:any, u:any) => x + y + z + u)
     expect(add(3, _)(4)(5)(6)).toEqual(18)
     expect(add()(3)()(4, 5, 6)).toEqual(18)
     expect(add(3, 4, 5, 6)).toEqual(18)
   })
 
   it('will take up to two extra arguments', () => {
-    const curried = curry4((a, b, c, d, e, f) => [a, b, c, d, e, f])
+    const curried = curry4((a:any, b:any, c:any, d:any, e:any, f:any) => [a, b, c, d, e, f])
     expect(curried(1, 2, 3, 4, 5, 6, 7)).toEqual([1, 2, 3, 4, 5, 6])
   })
 
   it('can use the placeholder', () => {
-    const curried = curry4((a, b, c, d, e, f) => [a, b, c, d, e, f])
+    const curried = curry4((a:any, b:any, c:any, d:any, e:any, f:any) => [a, b, c, d, e, f])
     expect(curried(_, 2)('a', 3, 4, 5, 6)).toEqual(['a', 2, 3, 4, 5, 6])
     expect(curried(_, 2, 3)('b', 4, 5, 6)).toEqual(['b', 2, 3, 4, 5, 6])
     expect(curried(_, 2, 3, 4)('c', 5, 6)).toEqual(['c', 2, 3, 4, 5, 6])
@@ -103,7 +103,7 @@ describe('curry4', () => {
   })
 
   it('returns a fn with arity of 4', () => {
-    const curried = curry4((a, b, c, d, e, f) => [a, b, c, d, e, f])
+    const curried = curry4((a:any, b:any, c:any, d:any, e:any, f:any) => [a, b, c, d, e, f])
     expect(curried).toHaveLength(4)
   })
 })

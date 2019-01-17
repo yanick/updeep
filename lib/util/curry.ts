@@ -1,6 +1,12 @@
 /* eslint no-shadow:0, no-param-reassign:0 prefer-rest-params:0 */
 export const _ = "@@updeep/placeholder";
 
+type Placeholder = "@@updeep/placeholder";
+
+function isPlaceholder( x: any ): x is Placeholder {
+    return x === _;
+}
+
 function countArguments(args: unknown[], max: number = 4) {
   let n = args.length;
   if (n > max) n = max;
@@ -12,134 +18,120 @@ function countArguments(args: unknown[], max: number = 4) {
   return n;
 }
 
-type AnyFunction = (...args: unknown[]) => unknown;
-
-type InnerCurry1<R,A> = ( fn: ( a: A ) => R ) => ( a: A ) => R;
-
-export function curry1<R, A extends any = any, B extends any = any, C extends any = any>(fn: (...args: [A, B?, C? ]) => R) {
-  return function curried(...args: [ A?, B?, C? ]) {
-    const n = countArguments(arguments as any);
-
-    if (n >= 1) return (fn as any)(...args) as R;
-
-    return curried;
-  };
+interface SprawlingCurry<R,A extends any[]> {
+    (...args: A): R;
+    (): SprawlingCurry<R,A>
 }
 
-type Placeholder = "@@updeep/placeholder";
+export function curry1<R,A>(fn: (a: A) => R): SprawlingCurry<R,[A]>;
+export function curry1<R,A>(fn: (a: A, ...args: any) => R): SprawlingCurry<R,[A,...any[]]>;
+export function curry1(fn: any): any {
+  return function curried(a:any , ...args: any[]) {
+    const [b, c] = args
+    const n = countArguments(arguments as any)
 
-function isPlaceholder( x: any ): x is Placeholder {
-    return x === _;
+    if (n >= 1) return fn(a, b, c)
+    return curried
+  }
 }
 
-export function curry2<R, A extends any = any, B extends any = any, C extends any = any, D extends any = any>(
-  fn: (...args: [A,B,C?,D?]) => R
-) {
-  return function curried(...args:[(A|Placeholder)?,B?,C?,D?]) {
-    const n = countArguments(args, 2);
+export function curry2(fn:any ):any {
+  return function curried(a:any, b:any, ...args: any[]) {
+    const [c, d] = args
+    const n = countArguments(arguments as any, 2)
 
-    const [ a,b,c,d ] = args;
-
-    if ((b as any) === _ || (c as any) === _ || (d as any) === _) {
+    if (b === _ || c === _ || d === _) {
       throw new Error(
-        "Can only use placeholder on first argument of this function."
-      );
+        'Can only use placeholder on first argument of this function.'
+      )
     }
 
     if (n >= 2) {
-      if ( isPlaceholder(a) )
-        return curry1((a: A, c?: C, d?: D) => fn(a as A, b as B, c as C, d as D));
-
-      return fn(a as A, b as B, c as C, d as D);
+      if (a === _) return curry1((a, c, d) => fn(a, b, c, d))
+      return fn(a, b, c, d)
     }
 
-    if (n === 1) return curry1((b: B, c?: C, d?: D) => fn(a as A, b as B, c as C, d as D));
-
-    return curried;
-  };
+    if (n === 1) return curry1((b, c, d) => fn(a, b, c, d))
+    return curried
+  }
 }
 
-export function curry3<A, B, C, D, R, E = any>(
-  fn: (a: A, b: B, c: C, d: D, e?: E) => R
-) {
-  return function curried(a: A, b: B, c: C, ...args: [D, E?]) {
-    const [d, e] = args;
-    const n = countArguments(arguments as any, 3);
+export function curry3(fn:any): any {
+  return function curried(a:any, b:any, c:any, ...args:any[]) {
+    const [d, e] = args
+    const n = countArguments(arguments as any, 3)
 
-    if ((c as any) === _ || (d as any) === _ || (e as any) === _) {
+    if (c === _ || d === _ || e === _) {
       throw new Error(
-        "Can only use placeholder on first or second argument of this function."
-      );
+        'Can only use placeholder on first or second argument of this function.'
+      )
     }
 
     if (n >= 3) {
-      if ((a as any) === _) {
-        if ((b as any) === _)
-          return curry2((a: A, b: B, d: D, e?: E) => fn(a, b, c, d, e));
-        return curry1((a: A, d: D, e?: E) => fn(a, b, c, d, e));
+      if (a === _) {
+        if (b === _) return curry2((a:any, b:any, d,:any e:any) => fn(a, b, c, d, e))
+        return curry1((a:any, d:any, e:any) => fn(a, b, c, d, e))
       }
-      if ((b as any) === _)
-        return curry1((b: B, d: D, e?: E) => fn(a, b, c, d, e));
-      return fn(a, b, c, d, e);
+      if (b === _) return curry1((b:any, d:any, e:any) => fn(a, b, c, d, e))
+      return fn(a, b, c, d, e)
     }
 
     if (n === 2) {
-      if ((a as any) === _)
-        return curry2((a: A, c: C, d: D, e?: E) => fn(a, b, c, d, e));
-      return curry1((c: C, d: D, e?: E) => fn(a, b, c, d, e));
+      if (a === _) return curry2((a:any, c:any, d:any, e:any) => fn(a, b, c, d, e))
+      return curry1((c:any, d:any, e:any) => fn(a, b, c, d, e))
     }
 
-    if (n === 1) return curry2((b: B, c: C, d: D, e?: E) => fn(a, b, c, d, e));
+    if (n === 1) return curry2((b:any, c:any, d:any, e:any) => fn(a, b, c, d, e))
 
-    return curried;
-  };
+    return curried
+  }
 }
 
-export function curry4<R,A,B,C,D,E,F=any>(fn: ( a:A,b:B,c:C,d:D,e:E,f?:F) => R ) {
-  return function curried(a:A, b:B, c:C, d:D, ...args: [E,F?]) {
-    const [e, f] = args;
-    const n = countArguments(arguments as any, 4);
+export function curry4(fn:any): any {
+  return function curried(a:any, b:any, c:any, d:any, ...args:any[]) {
+    const [e, f] = args
+    const n = countArguments(arguments as any, 4)
 
-    if (( d as any ) === _ || ( e as any ) === _ || ( f as any ) === _) {
+    if (d === _ || e === _ || f === _) {
       throw new Error(
-        "Can only use placeholder on first, second or third argument of this function."
-      );
+        'Can only use placeholder on first, second or third argument of this function.'
+      )
     }
 
     if (n >= 4) {
-      if (( a as any ) === _) {
-        if (( b as any ) === _) {
-          if (( c as any ) === _) return curry3((a:A, b:B, c:C, e:E, f?:F) => fn(a, b, c, d, e, f));
-          return curry2((a:A, b:B, e:E, f?:F) => fn(a, b, c, d, e, f));
+      if (a === _) {
+        if (b === _) {
+          if (c === _) return curry3((a:any, b:any, c:any, e:any, f:any) => fn(a, b, c, d, e, f))
+          return curry2((a:any, b:any, e:any, f:any) => fn(a, b, c, d, e, f))
         }
-        if (( c as any ) === _) return curry2((a:A, c:C, e:E, f?:F) => fn(a, b, c, d, e, f));
-        return curry1((a:A, e:E, f?:F) => fn(a, b, c, d, e, f));
+        if (c === _) return curry2((a:any, c:any, e:any, f:any) => fn(a, b, c, d, e, f))
+        return curry1((a:any, e:any, f:any) => fn(a, b, c, d, e, f))
       }
-      if (( b as any ) === _) {
-        if (( c as any ) === _) return curry2((b:B, c:C, e:E, f?:F) => fn(a, b, c, d, e, f));
-        return curry1((b:B, e:E, f?:F) => fn(a, b, c, d, e, f));
+      if (b === _) {
+        if (c === _) return curry2((b:any, c:any, e:any, f:any) => fn(a, b, c, d, e, f))
+        return curry1((b:any, e:any, f:any) => fn(a, b, c, d, e, f))
       }
-      if (( c as any ) === _) return curry1((c:C, e:E, f?:F) => fn(a, b, c, d, e, f));
-      return fn(a, b, c, d, e, f);
+      if (c === _) return curry1((c:any, e:any, f:any) => fn(a, b, c, d, e, f))
+      return fn(a, b, c, d, e, f)
     }
 
     if (n === 3) {
-      if (( a as any ) === _) {
-        if (( b as any ) === _) return curry3((a:A, b:B, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
-        return curry2((a:A, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
+      if (a === _) {
+        if (b === _) return curry3((a:any, b:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
+        return curry2((a:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
       }
-      if (( b as any ) === _) return curry2((b:B, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
-      return curry1((d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
+      if (b === _) return curry2((b:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
+      return curry1((d:any, e:any, f:any) => fn(a, b, c, d, e, f))
     }
 
     if (n === 2) {
-      if (( a as any ) === _) return curry3((a:A, c:C, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
-      return curry2((c:C, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
+      if (a === _) return curry3((a:any, c:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
+      return curry2((c:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
     }
 
-    if (( n as any ) === 1) return curry3((b:B, c:C, d:D, e:E, f?:F) => fn(a, b, c, d, e, f));
-    return curried;
-  };
+    if (n === 1) return curry3((b:any, c:any, d:any, e:any, f:any) => fn(a, b, c, d, e, f))
+    return curried
+  }
 }
 
 export default function curry(fn: (...args:any[] ) => any, length: 1|2|3|4|undefined ) {
