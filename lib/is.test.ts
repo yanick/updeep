@@ -7,7 +7,7 @@ const isEven = (x:number) => x % 2 === 0
 describe('u.is', () => {
   it('returns true if path matches a value predicate', () => {
     const result = u.is('a.b', 4, { a: { b: 4 } })
-    expect(result).toBeTruthy()
+    expect(result).toBe(true)
   })
 
   it('returns true if path matches a function predicate', () => {

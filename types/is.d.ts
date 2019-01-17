@@ -1,5 +1,9 @@
-import { Source, Path } from './types';
-declare type Predicate = any;
-export declare function is(path: Path, predicate: Predicate, object: Source): boolean;
-declare const _default: import("lodash").CurriedFunction3<Path, any, any, boolean>;
+import { Path } from './types';
+export declare function is(path: Path, predicate: any, object: any): boolean;
+interface CurriedIs {
+    (path: Path, predicate: any, object: any): boolean;
+    (path: Path, predicate: any): (object: any) => boolean;
+    (path: Path): (predicate: any) => (object: any) => boolean;
+}
+declare const _default: CurriedIs;
 export default _default;

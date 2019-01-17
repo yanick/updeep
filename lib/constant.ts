@@ -5,11 +5,7 @@ import freeze from './freeze'
  *
  * Useful for replacing an object outright rather than merging it.
  *
- * @function
- * @sig a -> (* -> a)
  * @memberOf u
- * @param  {*} value what to return from returned function.
- * @return {function} a new function that will always return value.
  *
  * @example
  * var alwaysFour = u.constant(4);

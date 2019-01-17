@@ -1,2 +1,2 @@
-declare const wrapped: import("lodash").CurriedFunction2<string | boolean | Function, any[], any[]>;
+declare const wrapped: import("lodash").CurriedFunction2<any, any[], any[]>;
 export default wrapped;

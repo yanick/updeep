@@ -2,7 +2,7 @@ import splitPath from './util/splitPath'
 import curry from './util/curry'
 import { Source, Path } from './types';
 
-export function is(path: Path, predicate: any, object: object): boolean {
+export function is(path: Path, predicate: any, object: any): boolean {
   const parts = splitPath(path)
 
   let rest = object
@@ -19,4 +19,10 @@ export function is(path: Path, predicate: any, object: object): boolean {
   return predicate === rest
 }
 
-export default curry(is)
+interface CurriedIs {
+    ( path: Path, predicate: any, object: any ): boolean;
+    ( path: Path, predicate: any ): (object: any ) => boolean;
+    ( path: Path ):( predicate: any ) => (object: any ) => boolean;
+}
+
+export default curry(is) as CurriedIs;

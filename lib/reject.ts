@@ -2,7 +2,7 @@ import _reject from 'lodash/reject'
 import curry from 'lodash/curry'
 import freeze from './freeze';
 
-function reject(predicate: boolean|Function|string, collection: any[]) {
+function reject(predicate: any, collection: any[]) {
   const result = _reject(collection, predicate as any)
   const equal = collection.length === result.length
 
