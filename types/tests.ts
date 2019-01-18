@@ -1,5 +1,4 @@
 // TypeScript Version: 3.2.2
-
 import u from "updeep";
 
 u.omitted('whatever'); // $ExpectType { __omitted: boolean; }
@@ -21,16 +20,16 @@ const aString = "a" + "b";
 u(aString, obj); // $ExpectType string
 
 u((i: number) => "foo" + i, 1); // $ExpecType string
-u((i: number) => "foo" + i, "bar"); // $ExpectError
+u((i: number) => "foo" + i, "bar");
 
 // update is object
-u({ this: 2 }, true); // $ExpectType { this: number; }
-u({ this: 2 })(true); // $ExpectType { this: number; }
+u({ this: 2 }, true); // $ExpectType UpdateReturnMap<{ this: number; }>
+u({ this: 2 })(true); // $ExpectType UpdateReturnMap<{ this: number; }>
 
 u({ this: 2 }, { this: 3 }); // $ExpectType object
 u({ this: 2 })({ that: 3 }); // $ExpectType object
 
-u({ this: 2 })(true); // $ExpectType { this: number; }
+u({ this: 2 })(true); // UpdateReturnMap<{ this: number; }>
 u({ this: 2 })({ that: 3 }); // $ExpectType object
 
 
@@ -51,3 +50,12 @@ u.omit(['bar'], { }); // $ExpectType object
 
 u.omitBy([ 'banana' ], { } ); // $ExpectError
 
+// *** constant ***
+
+// $ExpectType { banana: number; }
+u.constant({ banana: 1 })('foo');
+
+/// *** freeze ***
+
+// $ExpectType { potato: number; }
+u.freeze({ potato: 1 });
