@@ -22,3 +22,7 @@ export type UpdateReturnType<U> =
         : U extends object ? UpdateReturnMap<U>
         : U;
 
+export type ReturningFunction = (...args: any[]) => any;
+
+export type ArgumentsType<F extends (...args: any[])=>any> = F extends (...args: infer A) => any ? A : never;
+

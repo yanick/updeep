@@ -10,3 +10,5 @@ export declare type UpdateReturnMap<T> = {
     [K in keyof T]: UpdateReturnType<T[K]>;
 };
 export declare type UpdateReturnType<U> = U extends (object: any) => any ? ReturnType<U> : U extends object ? UpdateReturnMap<U> : U;
+export declare type ReturningFunction = (...args: any[]) => any;
+export declare type ArgumentsType<F extends (...args: any[]) => any> = F extends (...args: infer A) => any ? A : never;
