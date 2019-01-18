@@ -6,8 +6,8 @@ describe('u.if', () => {
     let result = u.if(false, { b: 1 }, object)
     expect(result).toEqual(object)
 
-    result = u({ x: u.if(false, 1) }, {})
-    expect(result).toEqual({})
+    let r2 = u({ x: u.if(false, 1) }, {})
+    expect(r2).toEqual({})
   })
 
   it('does update if the predicate is true', () => {

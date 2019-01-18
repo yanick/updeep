@@ -1,6 +1,7 @@
 import u from './index'
 
 const inc = (x:number) => x+1
+
 describe('updeep', () => {
   it('does not change anything if no updates are specified', () => {
     const object = { foo: 3, bar: [7, 5] }
@@ -102,7 +103,7 @@ describe('updeep', () => {
     const result = u({ foo: { bar: 3 } }, { foo: { bar: 0 } })
 
     expect(Object.isFrozen(result)).toBeTruthy()
-    expect(Object.isFrozen(result.foo)).toBeTruthy()
+    expect(Object.isFrozen((result as any).foo)).toBeTruthy()
   })
 
   it('assigns null values', () => {
@@ -111,7 +112,8 @@ describe('updeep', () => {
 
   it('can use a placeholder to partially apply', () => {
     const updateJoe = u(u._, { name: 'Joe Merrill', age: 21 })
-    const result = updateJoe({ age: inc })
+    console.log(updateJoe);
+    const result = (updateJoe as any)({ age: inc })
 
     expect(result).toEqual({ name: 'Joe Merrill', age: 22 })
   })
@@ -138,7 +140,7 @@ describe('updeep', () => {
     expect(result).toEqual({ created: date })
   })
 
-  const expectU = (update: typeof u.update, orig: object, expected: object) =>
+  const expectU = (update: any, orig: object, expected: object) =>
     expect(update(orig)).toEqual(expected)
 
   describe('u.omitted', () => {

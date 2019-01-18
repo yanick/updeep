@@ -1,8 +1,11 @@
-import isPlainObject from 'lodash/isPlainObject'
-import _omitBy from 'lodash/omitBy'
+import isPlainObject = require( 'lodash/isPlainObject' )
+import _omitBy = require( 'lodash/omitBy' )
 
 import wrap from './wrap'
 import constant from './constant'
+import curry from './util/curry'
+import freeze from './freeze'
+import { Updates, Source, MergedUpdate, UpdateReturnType } from './types';
 
 const innerOmitted = { __omitted: true }
 export const omitted = constant(innerOmitted)
@@ -71,7 +74,10 @@ function updateArray(updates: object, object: any[]) {
  * @param {Object|Array}    object to update
  * @return {Object|Array}   new object with modifications
  */
-function update(updates: Updates, object: any, ...args: any[]) {
+function update<U>(updates: U extends object ? never: U, object: any ): U;
+function update<U,O>(updates: U, object: O extends object ? never : O ): UpdateReturnType<U>;
+function update<U,O>(updates: U, object: O, ...args: any[]): MergedUpdate<U,O>;
+function update(updates: any, object: any, ...args: any[]): any {
   if (typeof updates === 'function') {
     return updates(object, ...args)
   }
@@ -97,19 +103,25 @@ function update(updates: Updates, object: any, ...args: any[]) {
 
   return _omitBy(
     { ...defaultedObject, ...resolvedUpdates },
-    value => value === innerOmitted
+    (value:any) => value === innerOmitted
   )
 }
 
-import curry from 'lodash/curry'
-import freeze from './freeze'
-import { Updates, Source } from './types';
+const wrapped = wrap(update,2)
 
-const frozen :typeof update = (...args: any[]) => freeze( (update as any)(...args) );
+interface CurriedUpdate1<U> {
+    <O>( object: O extends object ? never : O ): UpdateReturnType<U>;
+    <O>( object: O, ...args: any[]):  MergedUpdate<U,O>;
+}
 
-const wrapped = curry(frozen,2)
+interface CurriedUpdate {
+    <U>(updates: U extends object ? never: U, object: any ): U;
+    <U,O>(updates: U, object: O extends object ? never : O ): UpdateReturnType<U>;
+    <U,O>(updates: U, object: O, ...args: any[]): MergedUpdate<U,O>;
 
-type WithAdditionalArgs = typeof wrapped & ( ( updates: any, object: any, ...args: any[] ) => any)
+    <U>(updates: U extends object ? never: U ): ( object: any ) => U;
+    <U>(updates: U ): CurriedUpdate1<U>
+}
 
 
-export default wrapped as WithAdditionalArgs
+export default wrapped as CurriedUpdate;

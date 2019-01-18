@@ -9,7 +9,7 @@ export function updateIfElse<S,TU,FU>(predicate: Predicate<S>, trueUpdates: TU, 
 
   const updates = test ? trueUpdates : falseUpdates
 
-  return update(updates, object)
+  return update(updates, object) as any
 }
 
 interface CurriedIfElse {
