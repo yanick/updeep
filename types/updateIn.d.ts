@@ -1,3 +1,11 @@
 import { Path } from './types';
-declare const _default: import("lodash").CurriedFunction3<Path, any, any, any>;
+interface Curry2 {
+    (value: any, object: any): any;
+    (value: any): (object: any) => any;
+}
+interface CurriedUpdateIn {
+    (path: Path, value: any, object: any): any;
+    (path: Path): Curry2;
+}
+declare const _default: CurriedUpdateIn;
 export default _default;

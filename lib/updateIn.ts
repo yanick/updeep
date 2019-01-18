@@ -1,4 +1,4 @@
-import curry from 'lodash/curry'
+import curry from './util/curry'
 import update from './update'
 import map from './map'
 import splitPath from './util/splitPath'
@@ -19,12 +19,21 @@ function reducePath(acc:Updates, key: PathPart) {
   return { [key]: acc }
 }
 
-function updateIn(path: Path, value: Updates, object: Source) {
+function updateIn(path: Path, value: any, object: any): any {
   const parts = splitPath(path)
   const updates = parts.reduceRight(reducePath, value)
 
   return update(updates, object)
 }
 
+interface Curry2 {
+    (value: any, object: any ) : any;
+    (value: any): (object: any ) => any;
+}
 
-export default curry(updateIn)
+interface CurriedUpdateIn {
+    (path: Path, value: any, object: any): any;
+    (path: Path): Curry2;
+}
+
+export default curry(updateIn) as CurriedUpdateIn;
