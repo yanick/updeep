@@ -1,8 +1,21 @@
-import _omitBy from 'lodash/omitBy'
-import curry from 'lodash/curry'
+import _omitBy = require("lodash/omitBy");
+import curry from "./util/curry";
 
-function omitBy(predicate: any, collection: object) {
-  return _omitBy(collection, predicate)
+export function omitBy<C extends object, P extends (...args: any[]) => boolean>(
+  predicate: P,
+  collection: C
+): object {
+  return _omitBy(collection, predicate);
 }
 
-export default curry(omitBy)
+interface CurriedOmitBy {
+  <C extends object, P extends (...args: any[]) => boolean>(
+    predicate: P,
+    collection: C
+  ): object;
+  <C extends object, P extends (...args: any[]) => boolean>(predicate: P): (
+    collection: C
+  ) => object;
+}
+
+export default curry(omitBy) as CurriedOmitBy;

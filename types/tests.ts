@@ -49,3 +49,5 @@ u.map({a:1},{a:2});  // $ExpectType Mapped<{ a: number; }, { a: number; }>
 u.omit('bar', { }); // $ExpectType object
 u.omit(['bar'], { }); // $ExpectType object
 
+u.omitBy([ 'banana' ], { } ); // $ExpectError
+
