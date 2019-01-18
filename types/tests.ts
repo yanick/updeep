@@ -38,3 +38,11 @@ u.ifElse(false as boolean, { a: 1 }, { a: 2 }, { a: 3 }); // $ExpectType object
 u.ifElse(false as boolean, "foo", 3, { a: 3 }); // $ExpectType string | number
 u.ifElse(false, "foo", 3, { a: 3 }); // $ExpectType number
 u.ifElse(true, "foo", 3, { a: 3 }); // $ExpectType string
+
+// *** map ***
+const inc = (i:number) => i+1;
+
+u.map(inc, [1,2,3]); // $ExpectType number[]
+u.map(inc, ["potato"]); // $ExpectType number[]
+u.map({a:1},{a:2});  // $ExpectType Mapped<{ a: number; }, { a: number; }>
+

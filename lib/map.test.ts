@@ -3,11 +3,6 @@ import { Mapped } from './map';
 
 const inc = (x:number) => x + 1
 
-const r1 = u.map(inc, [1,2,3]) // $ExpectType number[]
-const r2 = u.map(inc, ["potato"]) // $ExpectType number[]
-// TODO  ^^^ expect error, if iteraree is a function, arg is
-// the values of the object
-
 describe('u.map', () => {
   it('applies updates to each item in an array', () => {
     const object = [0, 1, 2]

@@ -21,8 +21,8 @@ function shallowEqual(object: object, otherObject: object) {
   return equal
 }
 
-export type Mapped<I,O extends object> = {
-    [ K in keyof O ]: O[K] //MergedUpdate<I,O[K]>
+type Mapped<I,O extends object> = {
+    [ K in keyof O ]: MergedUpdate<I,O[K]>
 }
 
 function map<I,O extends object>(iteratee: I, object: O): Mapped<I,O> {
@@ -41,7 +41,8 @@ const frozen :typeof map = (...args: any[]) => freeze( (map as any)(...args) );
 const wrapped = curry(frozen,2)
 
 interface CurriedMap {
-    <I,O extends object>(iteratee: I, object: O): Mapped<I,O>
+    <I,O extends object>(iteratee: I, object: O): Mapped<I,O>;
+    <I,O extends object>(iteratee: I): (object: O)=> Mapped<I,O>;
 };
 
 export default wrapped as CurriedMap
