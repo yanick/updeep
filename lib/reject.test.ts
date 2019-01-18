@@ -1,5 +1,9 @@
 import u from '../lib'
 
+let r1 = u.reject(true, [1,2,3]); // $ExpectType number[]
+let r2 = u.reject(true, {a:1}); // $ExpectType number[]
+let r3 = u.reject(true, {a:1,b:"potato"}); // $ExpectType (string | number)[]
+
 describe('u.reject', () => {
   it('can reject by index', () => {
     const result = u.reject((_: unknown, index: number) => index === 1, [3, 4, 5])
@@ -39,5 +43,14 @@ describe('u.reject', () => {
 
   it('freezes the result', () => {
     expect(Object.isFrozen(u.reject('a', []))).toBeTruthy()
+  })
+
+  it('works on objects too', () => {
+      expect(
+          u.reject('goner',{ a: {one:1}, b: { goner: true }, c: {two:2} })
+      ).toEqual([
+          {one:1},
+          {two:2},
+      ]);
   })
 })

@@ -1,5 +1,4 @@
 import u from './index'
-import { Mapped } from './map';
 
 const inc = (x:number) => x + 1
 

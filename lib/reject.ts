@@ -1,16 +1,37 @@
-import _reject from 'lodash/reject'
-import curry from 'lodash/curry'
+import _reject = require('lodash/reject');
+import curry from './util/curry'
 import freeze from './freeze';
 
-function reject(predicate: any, collection: any[]) {
-  const result = _reject(collection, predicate as any)
-  const equal = collection.length === result.length
+function reject<C extends object>(predicate: any, collection: C): C extends any[] ? C : object
+    {
+  const result = (_reject as any)(collection, predicate as any)
 
-  return equal ? collection : result
+  let equal;
+  if( Array.isArray(collection) ) {
+    equal = collection.length === result.length
+  }
+  else {
+      equal = Object.keys(collection).length === Object.keys(result).length
+  }
+
+
+  return ( equal ? collection : result ) as C extends any[] ? C : object
 }
 
 const frozen :typeof reject = (...args: any[]) => freeze( (reject as any)(...args) );
 
 const wrapped = curry(frozen,2)
 
-export default wrapped
+interface CurriedReject {
+    <C extends any[]>(predicate: any, collection: C): C;
+    <C extends object>(predicate: any, collection: C):
+        Array< C[ keyof C ] >
+        ;
+
+    <C extends any[]>(predicate: any ): ( collection: C) => C;
+    <C extends object>(predicate: any):( collection: C) =>
+        Array< C[ keyof C ] >
+        ;
+}
+
+export default wrapped as CurriedReject
