@@ -1,2 +1,2 @@
-declare const wrapped: import("lodash").CurriedFunction2<any, any, any>;
+declare const wrapped: any;
 export default wrapped;

@@ -1,6 +1,10 @@
 {
     "extends": "dtslint/dtslint.json",
     "rules": {
+        "semicolon": false,
+        "one-line": false,
+        "no-padding": false,
+        "no-default-import": false,
         "trim-file": false,
         "no-consecutive-blank-lines": false,
         "typedef-whitespace": false,

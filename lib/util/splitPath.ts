@@ -1,4 +1,4 @@
-import reject from 'lodash/reject'
+import reject = require( 'lodash/reject');
 import { Path } from '../types';
 
 export default function splitPath(path: Path ): Array<string|number> {

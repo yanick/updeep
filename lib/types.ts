@@ -12,7 +12,8 @@ export type FalsePredicate<S=any> = false | ( (a: S) => false )
 export type Predicate<S = any> = boolean | ( (arg: S) => boolean )
 
 export type MergedUpdate<U,O> =
-    O extends object ?  UpdateReturnType<U> extends object ? object : UpdateReturnType<U>;
+    O extends object ?  ( UpdateReturnType<U> extends object ? object : UpdateReturnType<U> ):
+    UpdateReturnType<U>;
 
 export type UpdateReturnMap<T> = { [ K in keyof T]: UpdateReturnType<T[K]> };
 

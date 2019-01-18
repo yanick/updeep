@@ -7,7 +7,7 @@ function isPlaceholder( x: any ): x is Placeholder {
     return x === _;
 }
 
-function countArguments(args: unknown[], max: number = 4) {
+function countArguments(args: Array<unknown>, max: number = 4) {
   let n = args.length;
   if (n > max) n = max;
 

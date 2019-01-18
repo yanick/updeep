@@ -2,12 +2,6 @@
 
 import u from "updeep";
 
-// $ExpectType { banana: number; }
-u.constant({ banana: 1 })('foo');
-
-// $ExpectType { potato: number; }
-u.freeze({ potato: 1 });
-
 u.omitted('whatever'); // $ExpectType { __omitted: boolean; }
 
 const obj = { this: 3 };
@@ -40,3 +34,7 @@ u({ this: 2 })(true); // $ExpectType { this: number; }
 u({ this: 2 })({ that: 3 }); // $ExpectType object
 
 
+u.ifElse(false as boolean, { a: 1 }, { a: 2 }, { a: 3 }); // $ExpectType object
+u.ifElse(false as boolean, "foo", 3, { a: 3 }); // $ExpectType string | number
+u.ifElse(false, "foo", 3, { a: 3 }); // $ExpectType number
+u.ifElse(true, "foo", 3, { a: 3 }); // $ExpectType string

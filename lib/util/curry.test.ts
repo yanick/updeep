@@ -27,7 +27,7 @@ describe('curry2', () => {
   })
 
   it('will take up to two extra arguments', () => {
-    const curried = curry2((a:any, b:any, c:any, d:any) => [a, b, c, d]) as any
+    const curried = curry2((a:any, b:any, c:any, d:any) => [a, b, c, d])
     expect(curried(1, 2, 3, 4, 5)).toEqual([1, 2, 3, 4])
   })
 

@@ -5,7 +5,7 @@ const inc = (x:number) => x + 1
 describe('u.map', () => {
   it('applies updates to each item in an array', () => {
     const object = [0, 1, 2]
-    const result = u.map(inc, object)
+    const result = u.map(inc, object) // $ExpectType object
 
     expect(result).toEqual([1, 2, 3])
   })

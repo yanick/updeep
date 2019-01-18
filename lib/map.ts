@@ -1,7 +1,7 @@
 import forEach from 'lodash/forEach'
 import mapArray from 'lodash/map'
 import mapObject from 'lodash/mapValues'
-import curry from 'lodash/curry'
+import curry from './util/curry'
 import update from './update'
 import freeze from './freeze';
 import { Source, Updates } from './types';
@@ -21,7 +21,7 @@ function shallowEqual(object: object, otherObject: object) {
   return equal
 }
 
-function map(iteratee: Updates, object: Source) {
+function map(iteratee: any, object: object): object {
   const updater = typeof iteratee === 'function' ? iteratee : update(iteratee)
 
   const mapper = Array.isArray(object) ? mapArray : mapObject
