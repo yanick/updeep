@@ -3,8 +3,6 @@ import _omitBy = require( 'lodash/omitBy' )
 
 import wrap from './wrap'
 import constant from './constant'
-import curry from './util/curry'
-import freeze from './freeze'
 import { Updates, Source, MergedUpdate, UpdateReturnType } from './types';
 
 const innerOmitted = { __omitted: true }

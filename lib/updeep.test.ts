@@ -111,8 +111,7 @@ describe('updeep', () => {
   })
 
   it('can use a placeholder to partially apply', () => {
-    const updateJoe = u(u._, { name: 'Joe Merrill', age: 21 })
-    console.log(updateJoe);
+    const updateJoe = (ups:any) => u(ups, { name: 'Joe Merrill', age: 21 })
     const result = (updateJoe as any)({ age: inc })
 
     expect(result).toEqual({ name: 'Joe Merrill', age: 22 })
