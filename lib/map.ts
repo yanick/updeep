@@ -4,7 +4,7 @@ import mapObject from 'lodash/mapValues'
 import curry from './util/curry'
 import update from './update'
 import freeze from './freeze';
-import { Source, Updates } from './types';
+import { Source, Updates, MergedUpdate } from './types';
 
 function shallowEqual(object: object, otherObject: object) {
   let equal = true
@@ -21,7 +21,11 @@ function shallowEqual(object: object, otherObject: object) {
   return equal
 }
 
-function map(iteratee: any, object: object): object {
+export type Mapped<I,O extends object> = {
+    [ K in keyof O ]: O[K] //MergedUpdate<I,O[K]>
+}
+
+function map<I,O extends object>(iteratee: I, object: O): Mapped<I,O> {
   const updater = typeof iteratee === 'function' ? iteratee : update(iteratee)
 
   const mapper = Array.isArray(object) ? mapArray : mapObject
@@ -36,4 +40,8 @@ const frozen :typeof map = (...args: any[]) => freeze( (map as any)(...args) );
 
 const wrapped = curry(frozen,2)
 
-export default wrapped
+interface CurriedMap {
+    <I,O extends object>(iteratee: I, object: O): Mapped<I,O>
+};
+
+export default wrapped as CurriedMap

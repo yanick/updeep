@@ -1,11 +1,17 @@
 import u from './index'
+import { Mapped } from './map';
 
 const inc = (x:number) => x + 1
+
+const r1 = u.map(inc, [1,2,3]) // $ExpectType number[]
+const r2 = u.map(inc, ["potato"]) // $ExpectType number[]
+// TODO  ^^^ expect error, if iteraree is a function, arg is
+// the values of the object
 
 describe('u.map', () => {
   it('applies updates to each item in an array', () => {
     const object = [0, 1, 2]
-    const result = u.map(inc, object) // $ExpectType object
+    const result = u.map(inc, object)
 
     expect(result).toEqual([1, 2, 3])
   })
@@ -32,9 +38,9 @@ describe('u.map', () => {
     expect(result).toEqual(array)
 
     const object = { a: 0 }
-    result = u.map(ident, object)
+    let result2 = u.map(ident, object)
 
-    expect(result).toEqual(object)
+    expect(result2).toEqual(object)
   })
 
   it('passes the key or index as the second parameter to the iteratee', () => {
