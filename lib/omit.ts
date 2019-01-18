@@ -1,9 +1,14 @@
 import _omit from 'lodash/omit'
-import curry from 'lodash/curry'
+import curry from './util/curry'
 import freeze from './freeze'
 
-function omit<A>(predicate: string, collection: A[]): A[] {
+function omit(predicate: string[]|string, collection: object): object {
   return freeze(_omit(collection, predicate))
 }
 
-export default curry(omit);
+interface CurriedOmit {
+    (predicate: string[]|string, collection: object): object;
+    (predicate: string[]|string ): (collection: object) => object;
+}
+
+export default curry(omit) as CurriedOmit;
