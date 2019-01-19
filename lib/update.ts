@@ -72,10 +72,10 @@ function updateArray(updates: object, object: any[]) {
  * @param {Object|Array}    object to update
  * @return {Object|Array}   new object with modifications
  */
-function update<U>(updates: U extends object ? never: U, object: any ): U;
-function update<U,O>(updates: U, object: O extends object ? never : O ): UpdateReturnType<U>;
-function update<U,O>(updates: U, object: O, ...args: any[]): MergedUpdate<U,O>;
-function update(updates: any, object: any, ...args: any[]): any {
+export function update<U>(updates: U extends object ? never: U, object: any ): U;
+export function update<U,O>(updates: U, object: O extends object ? never : O ): UpdateReturnType<U>;
+export function update<U,O>(updates: U, object: O, ...args: any[]): MergedUpdate<U,O>;
+export function update(updates: any, object: any, ...args: any[]): any {
   if (typeof updates === 'function') {
     return updates(object, ...args)
   }

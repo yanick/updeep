@@ -25,7 +25,7 @@ type Mapped<I,O extends object> = {
     [ K in keyof O ]: MergedUpdate<I,O[K]>
 }
 
-function map<I,O extends object>(iteratee: I, object: O): Mapped<I,O> {
+export function map<I,O extends object>(iteratee: I, object: O): Mapped<I,O> {
   const updater = typeof iteratee === 'function' ? iteratee : update(iteratee)
 
   const mapper = Array.isArray(object) ? mapArray : mapObject

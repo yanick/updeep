@@ -10,16 +10,7 @@ import reject from './reject'
 import update, { omitted } from './update'
 import updateIn from './updateIn'
 import withDefault from './withDefault'
-import curry from 'lodash/curry'
-import { LoDashStatic } from 'lodash';
-
-type Default = {
-    (...args: any[] ): any
-    omit: typeof omit,
-    constant: typeof constant,
-    freeze: typeof freeze,
-    is: typeof is,
-} & typeof update
+import curry, { _ as placeholder } from './util/curry'
 
 const u :{
     omit: typeof omit,
@@ -34,11 +25,11 @@ const u :{
     withDefault: typeof withDefault,
     ifElse: typeof ifElse,
     if: typeof _if,
-        omitted: typeof omitted,
-        _: LoDashStatic,
+     omitted: typeof omitted,
+     _: typeof placeholder,
 } & typeof update  = update as any
 
-u._ = curry.placeholder
+u._ = placeholder
 u.constant = constant
 u.if = _if
 u.ifElse = ifElse

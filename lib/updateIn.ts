@@ -19,7 +19,7 @@ function reducePath(acc:Updates, key: PathPart) {
   return { [key]: acc }
 }
 
-function updateIn(path: Path, value: any, object: any): any {
+export function updateIn(path: Path, value: any, object: any): any {
   const parts = splitPath(path)
   const updates = parts.reduceRight(reducePath, value)
 

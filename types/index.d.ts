@@ -10,7 +10,7 @@ import reject from './reject';
 import update, { omitted } from './update';
 import updateIn from './updateIn';
 import withDefault from './withDefault';
-import { LoDashStatic } from 'lodash';
+import { _ as placeholder } from './util/curry';
 declare const u: {
     omit: typeof omit;
     omitBy: typeof omitBy;
@@ -25,6 +25,6 @@ declare const u: {
     ifElse: typeof ifElse;
     if: typeof _if;
     omitted: typeof omitted;
-    _: LoDashStatic;
+    _: typeof placeholder;
 } & typeof update;
 export default u;

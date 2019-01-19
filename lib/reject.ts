@@ -2,7 +2,7 @@ import _reject = require('lodash/reject');
 import curry from './util/curry'
 import freeze from './freeze';
 
-function reject<C extends object>(predicate: any, collection: C): C extends any[] ? C : object
+export function reject<C extends object>(predicate: any, collection: C): C extends any[] ? C : object
     {
   const result = (_reject as any)(collection, predicate as any)
 

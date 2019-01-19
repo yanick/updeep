@@ -1,4 +1,5 @@
 import { Path } from './types';
+export declare function updateIn(path: Path, value: any, object: any): any;
 interface Curry2 {
     (value: any, object: any): any;
     (value: any): (object: any) => any;

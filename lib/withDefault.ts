@@ -2,8 +2,8 @@ import update from './update'
 import curry from './util/curry'
 import { UpdateReturnType, MergedUpdate } from './types';
 
-function withDefault<D,U,O>(defaultValue: D,updates: U, object: O): MergedUpdate<U,O extends null|undefined ? D : O>;
-function withDefault(defaultValue: any, updates: any, object: any):any {
+export function withDefault<D,U,O>(defaultValue: D,updates: U, object: O): MergedUpdate<U,O extends null|undefined ? D : O>;
+export function withDefault(defaultValue: any, updates: any, object: any):any {
   if (typeof object === 'undefined') {
     return update(updates, defaultValue)
   }
