@@ -66,11 +66,6 @@ function updateArray(updates: object, object: any[]) {
  * update({ foo: x => (x + 1) }, { foo: 2 });
  * // => { foo: 3 }
  *
- * @function
- * @name update
- * @param {Object|Function} updates
- * @param {Object|Array}    object to update
- * @return {Object|Array}   new object with modifications
  */
 export function update<U>(updates: U extends object ? never: U, object: any ): U;
 export function update<U,O>(updates: U, object: O extends object ? never : O ): UpdateReturnType<U>;
