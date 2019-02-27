@@ -25,7 +25,12 @@ type Mapped<I,O extends object> = {
     [ K in keyof O ]: MergedUpdate<I,O[K]>
 }
 
-export function map<I,O extends object>(iteratee: I, object: O): Mapped<I,O> {
+type AnyFunction = ( ...args: any[] ) => any;
+
+export function map<O,R>( iteratee: ( value: O, key?: number  ) => R, object: O[] ): R[];
+export function map<O,R>( iteratee: ( value: O, key?: string  ) => R, object: { [key: string]: O } ): R[];
+export function map<I,O extends object>(iteratee: I extends AnyFunction ? never : I, object: O): Mapped<I,O>;
+export function map(iteratee: any, object: any): any {
   const updater = typeof iteratee === 'function' ? iteratee : update(iteratee)
 
   const mapper = Array.isArray(object) ? mapArray : mapObject
@@ -41,8 +46,15 @@ const frozen :typeof map = (...args: any[]) => freeze( (map as any)(...args) );
 const wrapped = curry(frozen,2)
 
 interface CurriedMap {
-    <I,O extends object>(iteratee: I, object: O): Mapped<I,O>;
-    <I,O extends object>(iteratee: I): (object: O)=> Mapped<I,O>;
+    <O,R>( iteratee: ( value: O, key: number  ) => R, object: O[] ): R[];
+    <O,R>( iteratee: ( value: O, key: number  ) => R) : ( object: O[] ) => R[];
+
+    <O,R>( iteratee: ( value: O, key: string  ) => R, object: { [key: string]: O } ): R[];
+    <O,R>( iteratee: ( value: O, key: string  ) => R ): ( object: { [key: string]: O } ) => R[];
+
+
+    <I,O extends object>(iteratee: I extends AnyFunction ? never : I, object: O): Mapped<I,O>
+    <I,O extends object>(iteratee: I extends AnyFunction ? never : I ): (object: O) => Mapped<I,O>
 };
 
 export default wrapped as CurriedMap

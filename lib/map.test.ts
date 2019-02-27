@@ -42,7 +42,7 @@ describe('u.map', () => {
       a: { x: 0 },
       b: [3, 3],
     }
-    const setToKey = (_:any, key:any) => key
+    const setToKey = (_:any, key:string) => key
     const result = u.map(u.map(setToKey), object)
 
     expect(result).toEqual({
