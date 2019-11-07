@@ -10,10 +10,17 @@ u(null, obj); // $ExpectType null
 u(undefined, obj); // $ExpectType undefined
 u("a specific string", obj); // $ExpectType "a specific string"
 
+<<<<<<< HEAD
 u(true)(obj); // $ExpectType true
 u(null)(obj); // $ExpectType null
 u(undefined)(obj); // $ExpectType undefined
 u("a specific string")(obj); // $ExpectType "a specific string"
+=======
+u(true as const)(obj); // $ExpectType true
+u(null)(obj); // $ExpectType null
+u(undefined)(obj); // $ExpectType undefined
+u("a specific string" as const)(obj); // $ExpectType "a specific string"
+>>>>>>> origin/master
 
 const aString = "a" + "b";
 
@@ -34,9 +41,16 @@ u({ this: 2 })({ that: 3 }); // $ExpectType object
 
 
 u.ifElse(false as boolean, { a: 1 }, { a: 2 }, { a: 3 }); // $ExpectType object
-u.ifElse(false as boolean, "foo", 3, { a: 3 }); // $ExpectType string | number
-u.ifElse(false, "foo", 3, { a: 3 }); // $ExpectType number
-u.ifElse(true, "foo", 3, { a: 3 }); // $ExpectType string
+u.ifElse(false as boolean, "foo", 3, { a: 3 }); // $ExpectType 3 | "foo"
+u.ifElse(false, "foo", 3, { a: 3 }); // $ExpectType 3
+u.ifElse(true, "foo", 3, { a: 3 }); // $ExpectType "foo"
+
+// *** map ***
+const inc = (i:number) => i+1;
+
+u.map(inc, [1,2,3]); // $ExpectType number[]
+u.map(inc, ["potato"]); // $ExpectType number[]
+u.map({a:1},{a:2});  // $ExpectType Mapped<{ a: number; }, { a: number; }>
 
 u.omit('bar', { }); // $ExpectType object
 u.omit(['bar'], { }); // $ExpectType object
