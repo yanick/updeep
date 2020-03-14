@@ -1,6 +1,6 @@
 import u from './index'
 
-const inc = ( x:number ) => x + 1
+const inc = ( x : number ) => x + 1
 
 describe('u.updateIn', () => {
   it('can update a single path described with a string', () => {
@@ -57,5 +57,9 @@ describe('u.updateIn', () => {
     const object = { '*': 1, x: 1 }
     const result = u.updateIn('*', inc, object)
     expect(result).toEqual({ '*': 2, x: 1 })
+  })
+
+  it('deals with 2:1 currying', () => {
+    const result = u.updateIn('x',3)({ x: 1 });
   })
 })

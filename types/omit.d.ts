@@ -1,7 +1,6 @@
 export declare function omit(predicate: string[] | string, collection: object): object;
-interface CurriedOmit {
-    (predicate: string[] | string, collection: object): object;
-    (predicate: string[] | string): (collection: object) => object;
-}
-declare const _default: CurriedOmit;
+declare const _default: {
+    (a: string | string[]): (a: object) => object;
+    (a: string | string[], b: object): object;
+};
 export default _default;

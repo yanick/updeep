@@ -2,7 +2,7 @@ import curry from './util/curry'
 import update from './update'
 import map from './map'
 import splitPath from './util/splitPath'
-import { Path, Updates, Source, PathPart } from './types';
+import { Path, Updates, Source, PathPart, VariadicCurry } from './types';
 
 const wildcard = '*'
 
@@ -26,14 +26,4 @@ export function updateIn(path: Path, value: any, object: any): any {
   return update(updates, object)
 }
 
-interface Curry2 {
-    (value: any, object: any ) : any;
-    (value: any): (object: any ) => any;
-}
-
-interface CurriedUpdateIn {
-    (path: Path, value: any, object: any): any;
-    (path: Path): Curry2;
-}
-
-export default curry(updateIn) as CurriedUpdateIn;
+export default curry(updateIn) as VariadicCurry<[any,any,any], any>;

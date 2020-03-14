@@ -22,7 +22,6 @@
   "scripts": {
     "build": "tsc ; rm -f ./types/*.test.ts ./types/util/*.test.ts",
     "dtslint": "dtslint --onlyTestTsNext types",
-    "test": "gulp && yarn -s dtslint",
     "test": "gulp",
     "test:watch": "gulp watch",
     "prepublish": "gulp prepublish",
@@ -33,6 +32,7 @@
     "url": "https://github.com/substantial/updeep/issues"
   },
   "dependencies": {
+    "@types/jest": "^25.1.4",
     "lodash": "^4.2.0"
   },
   "devDependencies": {
@@ -67,10 +67,10 @@
     "mocha": "^7.0.0",
     "phantomjs-prebuilt": "^2.1.14",
     "prettier": "^1.1.0",
+    "rimraf": "^3.0.0",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.1",
-    "rimraf": "^3.0.0",
     "typescript": "^3.6.3",
     "webpack": "^1.10.5",
     "webpack-dev-server": "^3.1.11",
