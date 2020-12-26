@@ -10,3 +10,5 @@ Forked from updeep v1.2.0.
 - Add check for process for browser context #424 
 
 - Make array manipulation helpers explicit in ReadMe #125 
+
+- add the two argument curried version of updateIn #287
