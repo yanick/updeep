@@ -8,3 +8,5 @@ Forked from updeep v1.2.0.
 - Update readme: Lodash-fp is discontinued, link to lodash/fp instead #470
 
 - Add check for process for browser context #424 
+
+- Make array manipulation helpers explicit in ReadMe #125 
