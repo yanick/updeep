@@ -178,6 +178,9 @@ const state = {
   ]
 };
 
+const newTodo = { done: false };
+const addTodo = existingTodos => [...existingTodos, newTodo];
+
 const result = u({ todos: addTodo }, state);
 
 expect(result).to.eql({ todos: [{ done: false }, { done: false }, { done: false }]});
