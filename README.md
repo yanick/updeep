@@ -1,5 +1,9 @@
 # updeep
 
+This is a fork of the official
+[updeep](https://github.com/substantial/updeep). Differences with
+the original are documented in the file [FORK.md](./FORK.md).
+
 > Easily update nested frozen objects and arrays in a declarative and immutable
 > manner.
 
