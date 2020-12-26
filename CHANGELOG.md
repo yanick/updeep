@@ -4,13 +4,13 @@
 
 - Example of array manipulation w/ lodash added.
   [#467]https://github.com/substantial/updeep/pull/467)
--
+- Update readme: Lodash-fp is discontinued, link to lodash/fp instead #470
+- Add check for process for browser context #424 
 
 ## [1.2.0]
 
 - Add TypeScript types - Thanks @yanick
   (https://github.com/substantial/updeep/pull/83)
-- Update readme: Lodash-fp is discontinued, link to lodash/fp instead #470
 
 ## [1.1.0]
 
