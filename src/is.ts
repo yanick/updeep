@@ -1,7 +1,9 @@
 import splitPath from './util/splitPath'
-import curry from './util/curry'
+import curry, {Curried} from './util/curry'
 
 import { Path } from './types'
+
+type Mix<C> = (x: C, y: C) => C;
 
 function is(path: Path, predicate: unknown, object: unknown) {
   const parts = splitPath(path)
