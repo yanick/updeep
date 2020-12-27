@@ -12,7 +12,11 @@ import updateIn from './updateIn'
 import withDefault from './withDefault'
 import { _ } from './util/curry'
 
-const u = update
+export type Updeep = typeof update & {
+    is: typeof is
+}
+
+const u : Updeep = update as Updeep
 
 u._ = _
 u.constant = constant
