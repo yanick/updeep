@@ -1,8 +1,8 @@
-import u from '.'
+import constant from './constant'
 
 describe('u.constant', () => {
   it('returns what it is given... constantly', () => {
-    const func = u.constant(4)
+    const func:any = constant(4)
 
     expect(func()).toEqual(4)
     expect(func('hi')).toEqual(4)
@@ -11,6 +11,6 @@ describe('u.constant', () => {
   })
 
   it('freezes the result', () => {
-    expect(Object.isFrozen(u.constant({})())).toBeTruthy()
+    expect(Object.isFrozen(constant({})())).toBeTruthy()
   })
 })
