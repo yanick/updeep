@@ -14,18 +14,18 @@ describe('u.is', () => {
 
   it('returns false if path matches a value predicate', () => {
     const result = u.is('a.b', 4, { a: { b: 5 } })
-    expect(result).toBeFalse
+    expect(result).toBeFalsy
   })
 
   it('returns false if path matches a function predicate', () => {
     const isEven = (x) => x % 2 === 0
     const result = u.is('a.b', isEven, { a: { b: 7 } })
-    expect(result).toBeFalse
+    expect(result).toBeFalsy
   })
 
   it('returns false if the path does not exist', () => {
     const result = u.is('a.b.c.d', 4, { a: { b: {} } })
-    expect(result).toBeFalse
+    expect(result).toBeFalsy
   })
 
   it('can test for undefined', () => {

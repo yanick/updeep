@@ -22,7 +22,7 @@ function shallowEqual(object, otherObject) {
 function map(iteratee, object) {
   const updater = typeof iteratee === 'function' ? iteratee : update(iteratee)
 
-  const mapper = Array.isArray(object) ? mapArray : mapObject
+  const mapper : any = Array.isArray(object) ? mapArray : mapObject
 
   const newObject = mapper(object, updater)
   const equal = shallowEqual(object, newObject)

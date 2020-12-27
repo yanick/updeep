@@ -31,14 +31,14 @@ describe('u.freeze', () => {
     const object = { foo: () => 1 }
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).toBeFalse
+    expect(Object.isFrozen(object.foo)).toBeFalsy
   })
 
   it('ignores regexps', () => {
     const object = { foo: /\d/ }
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).toBeFalse
+    expect(Object.isFrozen(object.foo)).toBeFalsy
   })
 
   it('does not freeze children if the parent is already frozen', () => {
@@ -46,7 +46,7 @@ describe('u.freeze', () => {
     Object.freeze(object)
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).toBeFalse
+    expect(Object.isFrozen(object.foo)).toBeFalsy
   })
 
   it('does not freeze in production', () => {
@@ -55,7 +55,7 @@ describe('u.freeze', () => {
     const object = {}
     u.freeze(object)
 
-    expect(Object.isFrozen(object)).toBeFalse
+    expect(Object.isFrozen(object)).toBeFalsy
   })
 
   it('handles null objects', () => {
