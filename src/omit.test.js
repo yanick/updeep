@@ -1,14 +1,13 @@
-import { expect } from 'chai'
-import u from '../lib'
+import u from '.'
 
 describe('u.omit', () => {
   it('can omit a key', () => {
     const result = u({ foo: u.omit('bar') }, { foo: { bar: 7 } })
 
-    expect(result).to.eql({ foo: {} })
+    expect(result).toEqual({ foo: {} })
   })
 
   it('freezes the result', () => {
-    expect(Object.isFrozen(u.omit('a', {}))).to.be.true
+    expect(Object.isFrozen(u.omit('a', {}))).toBeTruthy
   })
 })

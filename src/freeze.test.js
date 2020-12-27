@@ -1,5 +1,4 @@
-import { expect } from 'chai'
-import u from '../lib'
+import u from '.'
 
 describe('u.freeze', () => {
   afterEach(() => {
@@ -10,36 +9,36 @@ describe('u.freeze', () => {
     const object = {}
     u.freeze(object)
 
-    expect(Object.isFrozen(object)).to.be.true
+    expect(Object.isFrozen(object)).toBeTruthy()
   })
 
   it('freezes nested objects', () => {
     const object = { foo: { bar: 3 } }
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).to.be.true
+    expect(Object.isFrozen(object.foo)).toBeTruthy()
   })
 
   it('freezes nested arrays', () => {
     const object = [[0]]
     u.freeze(object)
 
-    expect(Object.isFrozen(object)).to.be.true
-    expect(Object.isFrozen(object[0])).to.be.true
+    expect(Object.isFrozen(object)).toBeTruthy()
+    expect(Object.isFrozen(object[0])).toBeTruthy()
   })
 
   it('ignores functions', () => {
     const object = { foo: () => 1 }
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).to.be.false
+    expect(Object.isFrozen(object.foo)).toBeFalse
   })
 
   it('ignores regexps', () => {
     const object = { foo: /\d/ }
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).to.be.false
+    expect(Object.isFrozen(object.foo)).toBeFalse
   })
 
   it('does not freeze children if the parent is already frozen', () => {
@@ -47,7 +46,7 @@ describe('u.freeze', () => {
     Object.freeze(object)
     u.freeze(object)
 
-    expect(Object.isFrozen(object.foo)).to.be.false
+    expect(Object.isFrozen(object.foo)).toBeFalse
   })
 
   it('does not freeze in production', () => {
@@ -56,18 +55,18 @@ describe('u.freeze', () => {
     const object = {}
     u.freeze(object)
 
-    expect(Object.isFrozen(object)).to.be.false
+    expect(Object.isFrozen(object)).toBeFalse
   })
 
   it('handles null objects', () => {
     const object = { foo: null }
     u.freeze(object)
-    expect(Object.isFrozen(object)).to.be.true
+    expect(Object.isFrozen(object)).toBeTruthy()
   })
 
   it('returns the same object', () => {
     const object = {}
     const result = u.freeze(object)
-    expect(result).to.equal(object)
+    expect(result).toEqual(object)
   })
 })

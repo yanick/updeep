@@ -1,5 +1,4 @@
-import { expect } from 'chai'
-import u from '../lib'
+import u from '.'
 
 describe('u.omitBy', () => {
   it('can omitBy with a function', () => {
@@ -9,10 +8,10 @@ describe('u.omitBy', () => {
       { foo: { bar: 7, baz: 'a' } }
     )
 
-    expect(result).to.eql({ foo: { baz: 'a' } })
+    expect(result).toEqual({ foo: { baz: 'a' } })
   })
 
   it('freezes the result', () => {
-    expect(Object.isFrozen(u.omit('a', {}))).to.be.true
+    expect(Object.isFrozen(u.omit('a', {}))).toBeTruthy()
   })
 })

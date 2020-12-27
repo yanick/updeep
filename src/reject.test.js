@@ -1,17 +1,16 @@
-import { expect } from 'chai'
-import u from '../lib'
+import u from '.'
 
 describe('u.reject', () => {
   it('can reject by index', () => {
     const result = u.reject((_, index) => index === 1, [3, 4, 5])
 
-    expect(result).to.eql([3, 5])
+    expect(result).toEqual([3, 5])
   })
 
   it('can reject with callback shorthand', () => {
     const result = u.reject('bad', [{ bad: true }, { bad: false }])
 
-    expect(result).to.eql([{ bad: false }])
+    expect(result).toEqual([{ bad: false }])
   })
 
   it("returns the same instance if reject doesn't make changes", () => {
@@ -23,7 +22,7 @@ describe('u.reject', () => {
       object
     )
 
-    expect(result).to.equal(object)
+    expect(result).toEqual(object)
   })
 
   it('returns a different instance if reject makes changes', () => {
@@ -35,10 +34,10 @@ describe('u.reject', () => {
       object
     )
 
-    expect(result).to.not.equal(object)
+    expect(result).not.toEqual(object)
   })
 
   it('freezes the result', () => {
-    expect(Object.isFrozen(u.reject('a', []))).to.be.true
+    expect(Object.isFrozen(u.reject('a', []))).toBeTruthy()
   })
 })
