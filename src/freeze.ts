@@ -1,4 +1,4 @@
-function isFreezable(object) {
+function isFreezable(object: unknown) {
   if (object === null) return false
   if (object instanceof RegExp) return false
   if (object instanceof ArrayBuffer) return false
@@ -6,15 +6,15 @@ function isFreezable(object) {
   return Array.isArray(object) || typeof object === 'object'
 }
 
-function needsFreezing(object) {
+function needsFreezing(object: unknown) {
   return isFreezable(object) && !Object.isFrozen(object)
 }
 
-function recur(object) {
+function recur(object: unknown) {
   Object.freeze(object)
 
-  Object.keys(object).forEach((key) => {
-    const value = object[key]
+  Object.keys(object as object).forEach((key) => {
+    const value = (object as object)[key]
     if (needsFreezing(value)) {
       recur(value)
     }
@@ -37,7 +37,7 @@ function recur(object) {
  * @param  {object} object Object to freeze.
  * @return {object} Frozen object, unless in production, then the same object.
  */
-function freeze(object) {
+function freeze<O extends unknown>(object: O): Readonly<O> {
   // is `process` defined? I.e., are we in a browser?
   if( typeof process === 'undefined' ) {
       return object;
