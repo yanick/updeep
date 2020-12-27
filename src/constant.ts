@@ -32,7 +32,7 @@ import freeze from './freeze'
  *
  * expect(result).toEqual({ name: 'Mitch', favorites: { band: 'Coldplay' } });
  */
-function constant(value) {
+function constant<O extends unknown>(value: O) {
   const frozen = freeze(value)
   return () => frozen
 }
