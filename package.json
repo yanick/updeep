@@ -28,32 +28,29 @@
   },
   "scripts": {
     "benchmark": "NODE_ENV=production node --require \"@babel/register\" perf",
-    "build": "microbundle",
-    "dev": "microbundle watch",
+    "build": "tsc",
+    "prebuild": "rm -r types/* dist/*",
     "dtslint": "dtslint --localTs node_modules/typescript/lib types",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx",
     "lint": "yarn -s eslint . && yarn -s dtslint",
-    "test": "mocha --recursive --require \"@babel/register\" test"
+    "test": "jest src"
   },
   "dependencies": {
-    "jest": "^26.6.3",
     "lodash": "^4.2.0"
   },
   "devDependencies": {
+    "jest": "^26.6.3",
     "@babel/core": "^7.7.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/register": "^7.7.0",
-    "@types/chai": "^4.1.7",
     "@types/jest": "^26.0.19",
     "@types/lodash": "^4.14.119",
-    "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "benchmark": "^2.1.4",
-    "chai": "^4.2.0",
     "chalk": "^4.0.0",
     "dtslint": "^4.0.0",
     "eslint": "^6.8.0",
@@ -61,8 +58,6 @@
     "eslint-plugin-expect-type": "^0.0.5",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "microbundle": "^0.13.0",
-    "mocha": "^8.0.1",
     "prettier": "^2.0.2",
     "table": "^6.0.1",
     "typescript": "4"
