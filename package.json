@@ -29,7 +29,7 @@
   "scripts": {
     "benchmark": "NODE_ENV=production node --require \"@babel/register\" perf",
     "build": "tsc",
-    "prebuild": "rm -r types/* dist/*",
+    "prebuild": "rm -fr types/* dist/*",
     "dtslint": "dtslint --localTs node_modules/typescript/lib types",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx",
     "lint": "yarn -s eslint . && yarn -s dtslint",
