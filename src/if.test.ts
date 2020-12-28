@@ -6,7 +6,7 @@ describe('u.if', () => {
     let result = u.if(false, { b: 1 }, object)
     expect(result).toEqual(object)
 
-    result = u({ x: u.if(false, 1) }, {})
+    result = (u as any)({ x: u.if(false, 1) }, {})
     expect(result).toEqual({})
   })
 

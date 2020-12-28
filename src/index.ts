@@ -1,7 +1,7 @@
 import constant from './constant'
 import freeze from './freeze'
 import is from './is'
-// import _if from './if'
+import _if from './if'
 import ifElse from './ifElse'
 import map from './map'
 import omit from './omit'
@@ -18,6 +18,7 @@ const methods = {
     omit,
     omitBy,
     ifElse,
+    if: _if,
 };
 
 export type Updeep = typeof update & typeof methods;
