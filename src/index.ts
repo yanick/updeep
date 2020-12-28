@@ -19,6 +19,7 @@ const methods = {
     omitBy,
     ifElse,
     if: _if,
+    update,
         updateIn,
     withDefault,
     reject,
@@ -31,20 +32,5 @@ export type Updeep = typeof update & typeof methods;
 const u : Updeep = update as Updeep
 
 Object.assign(u,methods);
-
-// u._ = _
-// u.constant = constant
-// u.if = _if
-// u.ifElse = ifElse
-// u.is = is
-// u.freeze = freeze
-// u.map = map
-// u.omit = omit
-// u.omitBy = omitBy
-// u.reject = reject
-// u.update = update
-// u.updateIn = updateIn
-// u.omitted = omitted
-// u.withDefault = withDefault
 
 export default u
