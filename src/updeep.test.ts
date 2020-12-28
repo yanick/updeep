@@ -100,7 +100,7 @@ describe('updeep', () => {
   })
 
   it('deeply freezes the result', () => {
-    const result = u({ foo: { bar: 3 } }, { foo: { bar: 0 } })
+    const result = u({ foo: { bar: 3 } }, { foo: { bar: 0 } }) as any
 
     expect(Object.isFrozen(result)).toBeTruthy()
     expect(Object.isFrozen(result.foo)).toBeTruthy()
@@ -114,7 +114,7 @@ describe('updeep', () => {
     function increment(i) {
       return i + 1
     }
-    const updateJoe = u(u._, { name: 'Joe Merrill', age: 21 })
+    const updateJoe = u(u._, { name: 'Joe Merrill', age: 21 }) as any
     const result = updateJoe({ age: increment })
 
     expect(result).toEqual({ name: 'Joe Merrill', age: 22 })

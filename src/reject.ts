@@ -1,7 +1,7 @@
 import _reject from 'lodash/reject'
 import wrap, {Wrap} from './wrap'
 
-interface CurriedReject {
+export interface CurriedReject {
     <C extends any[]>(predicate: any, collection: C): C;
     <C extends object>(predicate: any, collection: C): Array< C[ keyof C ] >
         ;

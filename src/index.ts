@@ -6,10 +6,10 @@ import ifElse from './ifElse'
 import map from './map'
 import omit from './omit'
 import omitBy from './omitBy'
-// import reject from './reject'
+import reject from './reject'
 import update, { omitted } from './update'
- import updateIn from './updateIn'
-// import withDefault from './withDefault'
+import updateIn from './updateIn'
+import withDefault from './withDefault'
 import { _ } from './util/curry'
 
 const methods = {
@@ -20,6 +20,10 @@ const methods = {
     ifElse,
     if: _if,
         updateIn,
+    withDefault,
+    reject,
+    omitted,
+    _,
 };
 
 export type Updeep = typeof update & typeof methods;
