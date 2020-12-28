@@ -5,7 +5,7 @@ import is from './is'
 // import ifElse from './ifElse'
 import map from './map'
 import omit from './omit'
-// import omitBy from './omitBy'
+import omitBy from './omitBy'
 // import reject from './reject'
 import update, { omitted } from './update'
 // import updateIn from './updateIn'
@@ -16,6 +16,7 @@ const methods = {
     is,
     map,
     omit,
+    omitBy
 };
 
 export type Updeep = typeof update & typeof methods;
