@@ -47,8 +47,8 @@ describe('u.updateIn', () => {
     let result = u.updateIn('a.*.b', (x) => x + 1, object)
     expect(result).toEqual({ a: [{ b: 1 }, { b: 2 }, { b: 3 }] })
 
-    object = { a: [0, 1, 2] }
-    result = u.updateIn(['a', '*'], (x) => x + 1, object)
+    const object2 = { a: [0, 1, 2] }
+    result = u.updateIn(['a', '*'], (x) => x + 1, object2)
     expect(result).toEqual({ a: [1, 2, 3] })
   })
 

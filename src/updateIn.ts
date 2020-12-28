@@ -2,6 +2,7 @@ import curry from './util/curry'
 import update from './update'
 import map from './map'
 import splitPath from './util/splitPath'
+import {Path} from './types'
 
 const wildcard = '*'
 
@@ -18,7 +19,7 @@ function reducePath(acc, key) {
   return { [key]: acc }
 }
 
-function updateIn(path, value, object) {
+function updateIn(path: Path, value: any, object: object): object {
   const parts = splitPath(path)
   const updates = parts.reduceRight(reducePath, value)
 

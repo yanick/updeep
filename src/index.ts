@@ -8,7 +8,7 @@ import omit from './omit'
 import omitBy from './omitBy'
 // import reject from './reject'
 import update, { omitted } from './update'
-// import updateIn from './updateIn'
+ import updateIn from './updateIn'
 // import withDefault from './withDefault'
 import { _ } from './util/curry'
 
@@ -19,6 +19,7 @@ const methods = {
     omitBy,
     ifElse,
     if: _if,
+        updateIn,
 };
 
 export type Updeep = typeof update & typeof methods;
