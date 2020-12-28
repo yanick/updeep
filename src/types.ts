@@ -12,3 +12,9 @@ export type UpdateReturnType<U> =
         U extends (object: any) => any ? ReturnType<U>
         : U extends object ? UpdateReturnMap<U>
         : U;
+
+export type Predicate<S = any> = boolean | ( (arg: S) => boolean )
+
+export type TruePredicate<S=any> = true | ( (a: S) => true )
+
+export type FalsePredicate<S=any> = false | ( (a: S) => false )
