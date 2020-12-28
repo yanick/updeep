@@ -14,3 +14,5 @@ Forked from updeep v1.2.0.
 - add the two argument curried version of updateIn #287
 
 - Move from Chai to Jest.
+
+- Change code to TypeScript.

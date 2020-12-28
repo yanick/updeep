@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.2.1 Forked
+## 2.0.0 Forked
 
 - Example of array manipulation w/ lodash added.
   [#467]https://github.com/substantial/updeep/pull/467)
@@ -9,6 +9,7 @@
 - Make array manipulation helpers explicit in ReadMe #125 
 - add the two argument curried version of updateIn #287
 - Move from Chai to Jest.
+- Change code to TypeScript
 
 ## [1.2.0]
 

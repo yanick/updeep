@@ -1,28 +1,27 @@
+"use strict";
+exports.__esModule = true;
 function isFreezable(object) {
-  if (object === null) return false
-  if (object instanceof RegExp) return false
-  if (object instanceof ArrayBuffer) return false
-
-  return Array.isArray(object) || typeof object === 'object'
+    if (object === null)
+        return false;
+    if (object instanceof RegExp)
+        return false;
+    if (object instanceof ArrayBuffer)
+        return false;
+    return Array.isArray(object) || typeof object === 'object';
 }
-
 function needsFreezing(object) {
-  return isFreezable(object) && !Object.isFrozen(object)
+    return isFreezable(object) && !Object.isFrozen(object);
 }
-
 function recur(object) {
-  Object.freeze(object)
-
-  Object.keys(object).forEach((key) => {
-    const value = object[key]
-    if (needsFreezing(value)) {
-      recur(value)
-    }
-  })
-
-  return object
+    Object.freeze(object);
+    Object.keys(object).forEach(function (key) {
+        var value = object[key];
+        if (needsFreezing(value)) {
+            recur(value);
+        }
+    });
+    return object;
 }
-
 /**
  * Deeply freeze a plain javascript object.
  *
@@ -38,24 +37,19 @@ function recur(object) {
  * @return {object} Frozen object, unless in production, then the same object.
  */
 function freeze(object) {
-  // is `process` defined? I.e., are we in a browser?
-  if( typeof process === 'undefined' ) {
-      return object;
-  }
-
-  if (process.env.NODE_ENV === 'production') {
-    return object
-  }
-
-  if (process.env.UPDEEP_MODE === 'dangerously_never_freeze') {
-    return object
-  }
-
-  if (needsFreezing(object)) {
-    recur(object)
-  }
-
-  return object
+    // is `process` defined? I.e., are we in a browser?
+    if (typeof process === 'undefined') {
+        return object;
+    }
+    if (process.env.NODE_ENV === 'production') {
+        return object;
+    }
+    if (process.env.UPDEEP_MODE === 'dangerously_never_freeze') {
+        return object;
+    }
+    if (needsFreezing(object)) {
+        recur(object);
+    }
+    return object;
 }
-
-export default freeze
+exports["default"] = freeze;
