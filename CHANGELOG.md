@@ -1,5 +1,9 @@
 # Change Log
 
+## [2.1.0] 
+
+- Forgot to export `constant`. Ooops.
+
 ## 2.0.0 Forked
 
 - Example of array manipulation w/ lodash added.
