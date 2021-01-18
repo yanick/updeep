@@ -1,6 +1,6 @@
 {
   "name": "@yanick/updeep",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Easily update nested frozen objects and arrays in a declarative and immutable manner.",
   "homepage": "https://github.com/yanick/updeep",
   "repository": {
@@ -39,7 +39,6 @@
     "lodash": "^4.2.0"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
     "@babel/core": "^7.7.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-env": "^7.7.1",
@@ -58,14 +57,22 @@
     "eslint-plugin-expect-type": "^0.0.5",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^26.6.3",
     "prettier": "^2.0.2",
     "table": "^6.0.1",
     "typescript": "4"
   },
   "babel": {
-      "presets": [
-      ["@babel/preset-env", {"targets": {"node": "current"}}],
-    "@babel/preset-typescript"
-      ]
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "@babel/preset-typescript"
+    ]
   }
 }
