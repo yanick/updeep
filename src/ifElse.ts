@@ -8,9 +8,8 @@ function updateIfElse(predicate, trueUpdates, falseUpdates, object) {
   const test =
     typeof predicate === 'function'
       ? predicate(object)
-      : isPlainObject(predicate)
-      ? match(object, predicate)
-      : predicate
+      : typeof predicate === 'boolean' ? predicate
+      :  match(object, predicate);
 
   const updates = test ? trueUpdates : falseUpdates
 

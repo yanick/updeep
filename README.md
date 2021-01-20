@@ -336,7 +336,7 @@ expect(alwaysFour(32)).to.eql(4);
 
 ### `u.if(predicate(, updates)(, object))`
 
-Apply `updates` if `predicate` is truthy. 
+Apply `updates` if `predicate` is `true`. 
 
 If `predicate` is
 a function, it will be evaluated with the `object` as its argument.
@@ -351,7 +351,7 @@ const result = u({ value: u.if(isEven, increment) }, { value: 2 });
 expect(result).to.eql({ value: 3 });
 ```
 
-If `predicate` is a plain object, it'll be used as the argument for lodash's 
+If `predicate` is not a boolean or a function, it'll be used as the argument for lodash's 
 `isMatch`.
 
 ```js
