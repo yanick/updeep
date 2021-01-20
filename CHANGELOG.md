@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.2.0
+
+- u.if with a plain object for the predicate now uses `_.isMatch`.
+- Added u.mapWhen and u.mapWhenElse.
+
 ## [2.1.0] 
 
 - Forgot to export `constant`. Ooops.
