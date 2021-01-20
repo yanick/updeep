@@ -336,22 +336,34 @@ expect(alwaysFour(32)).to.eql(4);
 
 ### `u.if(predicate(, updates)(, object))`
 
-Apply `updates` if `predicate` is truthy, or if `predicate` is a function.
-It evaluates to truthy when called with `object`.
+Apply `updates` if `predicate` is `true`. 
+
+If `predicate` is
+a function, it will be evaluated with the `object` as its argument.
+
 
 ```js
 function isEven(x) { return x % 2 === 0; }
 function increment(x) { return x + 1; }
 
-var result = u({ value: u.if(isEven, increment) }, { value: 2 });
+const result = u({ value: u.if(isEven, increment) }, { value: 2 });
 
 expect(result).to.eql({ value: 3 });
 ```
 
+If `predicate` is not a boolean or a function, it'll be used as the argument for lodash's 
+`isMatch`.
+
+```js
+const result = u({ value: u.if({a:1}, {b:2}) }, { a: 1, c:3 });
+
+expect(result).to.eql({ a: 1, b:2, c:3 });
+```
+
 ### `u.ifElse(predicate(, trueUpdates)(, falseUpdates)(, object))`
 
-Apply `trueUpdates` if `predicate` is truthy, or if `predicate` is a function.
-It evaluates to truthy when called with `object`. Otherwise, apply `falseUpdates`.
+Same as `u.if` but will apply `falseUpdates` when the predicate 
+evaluates to `false`.
 
 ```js
 function isEven(x) { return x % 2 === 0; }
@@ -397,6 +409,23 @@ expect(result).to.eql({ a: 1, b: 2, c: 3 });
 var result = u.map({ a: 100 }, [{ a: 0 }, { a: 1 }]);
 
 expect(result).to.eql([{ a: 100 }, { a: 100 }]);
+```
+
+### `u.mapWhen(predicate, update, object)`
+
+Essentially a shortcut for `u.map( u.if( predicate, update ), object )`.
+
+### `u.mapWhenElse(predicate, updateIf, updateElse, object)`
+
+Like `u.mapWhen`, but if no item was matched, calls  `updateElse`
+on the object.
+
+```js
+result = u.mapWhenElse( 'foo', { bar: 2 }, x => [ ...x, { bar: 2 } ], [ {bar:1},{foo:true},{bar:3} ] );
+// [ { bar: 1 }, { foo: true, bar:2 }, { bar: 3 } ]
+
+result = u.mapWhenElse( 'quux', { bar: 2 }, x => [ ...x, { bar: 2 } ], [ {bar:1},{foo:true},{bar:3} ] );
+// [ { bar: 1 }, { foo: true }, { bar: 3 }, {bar: 2} ]
 ```
 
 ### `u.omit(predicate(, object))`
