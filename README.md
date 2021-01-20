@@ -411,6 +411,23 @@ var result = u.map({ a: 100 }, [{ a: 0 }, { a: 1 }]);
 expect(result).to.eql([{ a: 100 }, { a: 100 }]);
 ```
 
+### `u.mapIf(predicate, update, object)`
+
+Essentially a shortcut for `u.map( u.if( predicate, update ), object )`.
+
+### `u.mapIfElse(predicate, updateIf, updateElse, object)`
+
+Like `u.mapIf`, but if no item was matched, calls  `updateElse`
+on the object.
+
+```js
+result = u.mapIfElse( 'foo', { bar: 2 }, x => [ ...x, { bar: 2 } ], [ {bar:1},{foo:true},{bar:3} ] );
+// [ { bar: 1 }, { foo: true, bar:2 }, { bar: 3 } ]
+
+result = u.mapIfElse( 'quux', { bar: 2 }, x => [ ...x, { bar: 2 } ], [ {bar:1},{foo:true},{bar:3} ] );
+// [ { bar: 1 }, { foo: true }, { bar: 3 }, {bar: 2} ]
+```
+
 ### `u.omit(predicate(, object))`
 
 Remove properties. See [`_.omit`](https://lodash.com/docs#omit).
