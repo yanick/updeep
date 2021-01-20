@@ -1,5 +1,9 @@
 # Change Log
 
+## NEXT
+
+- u.if with a plain object for the predicate now uses `_.isMatch`.
+
 ## 2.0.0 Forked
 
 - Example of array manipulation w/ lodash added.

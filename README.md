@@ -336,22 +336,34 @@ expect(alwaysFour(32)).to.eql(4);
 
 ### `u.if(predicate(, updates)(, object))`
 
-Apply `updates` if `predicate` is truthy, or if `predicate` is a function.
-It evaluates to truthy when called with `object`.
+Apply `updates` if `predicate` is truthy. 
+
+If `predicate` is
+a function, it will be evaluated with the `object` as its argument.
+
 
 ```js
 function isEven(x) { return x % 2 === 0; }
 function increment(x) { return x + 1; }
 
-var result = u({ value: u.if(isEven, increment) }, { value: 2 });
+const result = u({ value: u.if(isEven, increment) }, { value: 2 });
 
 expect(result).to.eql({ value: 3 });
 ```
 
+If `predicate` is a plain object, it'll be used as the argument for lodash's 
+`isMatch`.
+
+```js
+const result = u({ value: u.if({a:1}, {b:2}) }, { a: 1, c:3 });
+
+expect(result).to.eql({ a: 1, b:2, c:3 });
+```
+
 ### `u.ifElse(predicate(, trueUpdates)(, falseUpdates)(, object))`
 
-Apply `trueUpdates` if `predicate` is truthy, or if `predicate` is a function.
-It evaluates to truthy when called with `object`. Otherwise, apply `falseUpdates`.
+Same as `u.if` but will apply `falseUpdates` when the predicate 
+evaluates to `false`.
 
 ```js
 function isEven(x) { return x % 2 === 0; }
